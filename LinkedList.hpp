@@ -92,13 +92,16 @@ public:
 		if (count==0) {
 			return false;
 		}
+		count--;
 		if (head == tail) {
 			delete head;
 			head = nullptr;
 			tail = nullptr;
+			return true;
 		}
 		Node* temp = head;
-		head = temp->next;
+		head = head->next;
+		head->prev = nullptr;
 		delete temp;
 		count--;
 		temp = nullptr;
@@ -108,8 +111,16 @@ public:
 		if (count==0) {
 			return false;
 		}
+		count--;
+		if (head==tail) {
+			delete head;
+			head = nullptr;
+			tail = nullptr;
+			return true;
+		}
 		Node* temp = tail;
-		tail = temp->prev;
+		tail = tail->prev;
+		tail->next = nullptr;
 		delete temp;
 		count--;
 		temp = nullptr;
@@ -126,13 +137,14 @@ public:
 		if (this == &other) {
 			return *this;
 		}
-		this->count = other.count;
-		delete head;
-		delete tail;
+		this->clear();
 		head = other.head;
 		tail = other.tail;
+		count = other.count;
+
 		other.head = nullptr;
 		other.tail = nullptr;
+		other.count = 0;
 
 		return *this;
 	}
@@ -140,11 +152,7 @@ public:
 		if (this == &rhs) {
 			return *this;
 		}
-		this->count = rhs.count;
-		delete head;
-		delete tail;
-		head = nullptr;
-		tail = nullptr;
+		clear();
 
 		Node* current = rhs.head;
 		while (current!= nullptr) {
@@ -177,6 +185,7 @@ public:
 		count = other.count;
 		other.head = nullptr;
 		other.tail = nullptr;
+		other.count = 0;
 	}
 	~LinkedList() {
 		clear();
