@@ -17,19 +17,19 @@ public:
 
     // Insertion
     void enqueue(const T& item) override {
-        list.addHead(item);
+        list.addTail(item);
     }
 
     // Deletion
     T dequeue() override {
-        T temp = list.getTail();
-        list.removeTail();
+        T temp = list.getHead();
+        list.removeHead();
         return temp;
     }
 
     // Access
     T peek() const override {
-        return list.getTail();
+        return list.getHead();
     }
 
     // Getter
