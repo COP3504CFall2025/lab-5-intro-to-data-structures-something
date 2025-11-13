@@ -47,9 +47,15 @@ public:
 
     // Element Accessors
     const T& front() const override {
+        if (!list.getHead()) {
+            throw std::runtime_error("LLDQ front Failed");
+        }
         return list.getHead();
     }
     const T& back() const override {
+        if (!list.getTail()) {
+            throw std::runtime_error("LLDQ back Failed");
+        }
         return list.getTail();
     }
 
