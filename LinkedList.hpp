@@ -103,7 +103,7 @@ public:
 		head = head->next;
 		head->prev = nullptr;
 		delete temp;
-		count--;
+
 		temp = nullptr;
 		return true;
 	}
@@ -122,7 +122,7 @@ public:
 		tail = tail->prev;
 		tail->next = nullptr;
 		delete temp;
-		count--;
+
 		temp = nullptr;
 		return true;
 	}
@@ -169,20 +169,21 @@ public:
 		count = 0;
 	}
 	LinkedList(const LinkedList<T>& list) {
-		this->count = list.count;
+		count = 0;
 		head = nullptr;
 		tail = nullptr;
 
 		Node* current = list.head;
 		while (current != nullptr) {
-			this->addTail(current->data);
+			addTail(current->data);
 			current = current->next;
 		}
 	}
 	LinkedList(LinkedList<T>&& other) noexcept {
+		count = other.count;
 		head = other.head;
 		tail = other.tail;
-		count = other.count;
+
 		other.head = nullptr;
 		other.tail = nullptr;
 		other.count = 0;
