@@ -29,11 +29,17 @@ public:
 
     // Core Removal Operations
     T popFront() override {
+        if (!list.getHead()) {
+            throw std::runtime_error("LLDQ popFront Failed");
+        }
         T temp = list.getHead();
         list.removeHead();
         return temp;
     }
     T popBack() override {
+        if (!list.getTail()) {
+            throw std::runtime_error("LLDQ popBack Failed");
+        }
         T temp = list.getTail();
         list.removeTail();
         return temp;
@@ -50,6 +56,10 @@ public:
     // Getter
     std::size_t getSize() const noexcept override {
         return list.getSize();
+    }
+
+    ~LLDQ() override{
+        ~list();
     }
 };
 

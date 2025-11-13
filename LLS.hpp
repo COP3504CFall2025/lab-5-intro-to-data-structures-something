@@ -22,6 +22,9 @@ public:
 
     // Deletion
     T pop() override {
+        if (!list.getHead()) {
+            throw std::runtime_error("LLS Pop Failed");
+        }
         T temp = list.getHead();
         list.removeHead();
         return temp;
@@ -29,11 +32,18 @@ public:
 
     // Access
     T peek() const override {
-        return list.getHead();
+        if (list.getHead()) {
+            return list.getHead();
+        }
+        throw std::runtime_error("LLS Peek Failed");
     }
 
     //Getters
     std::size_t getSize() const noexcept override {
         return list.getSize();
+    }
+
+    ~LLS() override{
+        ~list();
     }
 };
