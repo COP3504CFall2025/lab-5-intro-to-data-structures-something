@@ -114,15 +114,17 @@ public:
     }
 
     T pop() override {
-        if (curr_size_ <= capacity_ / 4) {
-            capacity_ /= 2;
-        }
         if (curr_size_ == 0) {
             throw std::runtime_error("ABS pop fail");
         }
         T temp = array_[curr_size_ - 1];
         curr_size_--;
+
+        if (curr_size_ <= capacity_ / 4) {
+            capacity_ /= 2;
+        }
         return temp;
+
     }
 
     void printForward() {
