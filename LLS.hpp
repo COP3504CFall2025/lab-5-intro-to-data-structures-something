@@ -12,38 +12,36 @@ private:
 public:
     // Constructor
     LLS() {
-        list();
-    }
 
+    }
     // Insertion
     void push(const T& item) override {
-        list.addHead(item);
+        list.addTail(item);
     }
 
     // Deletion
     T pop() override {
-        if (!list.getHead()) {
+        if (!list.getTail()) {
             throw std::runtime_error("LLS Pop Failed");
         }
-        T temp = list.getHead();
-        list.removeHead();
+        T temp = list.getTail()->data;
+        list.removeTail();
         return temp;
     }
 
     // Access
     T peek() const override {
-        if (list.getHead()) {
-            return list.getHead();
+        if (list.getTail()) {
+            return list.getTail()->data;
         }
         throw std::runtime_error("LLS Peek Failed");
     }
 
     //Getters
     std::size_t getSize() const noexcept override {
-        return list.getSize();
+        return list.getCount();
     }
 
-    ~LLS() override{
-        ~list();
-    }
+
+
 };

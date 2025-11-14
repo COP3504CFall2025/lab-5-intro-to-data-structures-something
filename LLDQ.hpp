@@ -32,7 +32,7 @@ public:
         if (!list.getHead()) {
             throw std::runtime_error("LLDQ popFront Failed");
         }
-        T temp = list.getHead();
+        T temp = list.getHead()->data;
         list.removeHead();
         return temp;
     }
@@ -40,7 +40,7 @@ public:
         if (!list.getTail()) {
             throw std::runtime_error("LLDQ popBack Failed");
         }
-        T temp = list.getTail();
+        T temp = list.getTail()->data;
         list.removeTail();
         return temp;
     }
@@ -50,23 +50,21 @@ public:
         if (!list.getHead()) {
             throw std::runtime_error("LLDQ front Failed");
         }
-        return list.getHead();
+        return list.getHead()->data;
     }
     const T& back() const override {
         if (!list.getTail()) {
             throw std::runtime_error("LLDQ back Failed");
         }
-        return list.getTail();
+        return list.getTail()->data;
     }
 
     // Getter
     std::size_t getSize() const noexcept override {
-        return list.getSize();
+        return list.getCount();
     }
 
-    ~LLDQ() override{
-        ~list();
-    }
+
 };
 
 

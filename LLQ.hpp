@@ -11,9 +11,7 @@ private:
     LinkedList<T> list;
 public:
     // Constructor
-    LLQ() {
-        list();
-    }
+    LLQ() = default;
 
     // Insertion
     void enqueue(const T& item) override {
@@ -25,7 +23,7 @@ public:
         if (!list.getHead()) {
             throw std::runtime_error("LLQ Pop Failed");
         }
-        T temp = list.getHead();
+        T temp = list.getHead()->data;
         list.removeHead();
         return temp;
     }
@@ -35,16 +33,13 @@ public:
         if (!list.getHead()) {
             throw std::runtime_error("LLS Pop Failed");
         }
-        return list.getHead();
+        return list.getHead()->data;
     }
 
     // Getter
     std::size_t getSize() const noexcept override {
-        return list.getSize();
+        return list.getCount();
     }
 
-    ~LLQ() override{
-        ~list();
-    }
 
 };
