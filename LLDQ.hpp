@@ -22,7 +22,7 @@ public:
         list.addHead(item);
     }
     void pushBack(const T& item) override {
-        list.addHead(item);
+        list.addTail(item);
     }
 
     // Core Removal Operations
