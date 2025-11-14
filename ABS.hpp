@@ -21,6 +21,9 @@ public:
         capacity_ = capacity;
         curr_size_ = 0;
         array_ = new T[capacity_];
+        if (curr_size_ <= capacity_ / 4) {
+            capacity_ /= 2;
+        }
     }
     ABS(const ABS& other) {
         capacity_ = other.capacity_;
