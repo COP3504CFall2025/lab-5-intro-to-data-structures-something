@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstddef>
+#include <iostream>
 #include <stdexcept>
 #include "Interfaces.hpp"
 
@@ -48,6 +49,8 @@ public:
         curr_size_ = other.curr_size_;
         array_ = other.array_;
         other.array_ = nullptr;
+        other.curr_size_ = 0;
+        other.capacity_ = 0;
     }
     ABS& operator=(ABS&& rhs) noexcept {
         if (this == &rhs) {
@@ -58,6 +61,8 @@ public:
         delete[] array_;
         array_ = rhs.array_;
         rhs.array_ = nullptr;
+        rhs.curr_size_ = 0;
+        rhs.capacity_ = 0;
         return *this;
     }
     ~ABS() noexcept override {
@@ -84,6 +89,9 @@ public:
 
     // Push item onto the stack
     void push(const T& data) override {
+        if (curr_size_ <= capacity_ / 4) {
+            capacity_ /= 2;
+        }
         if (curr_size_ == capacity_) {
             capacity_ *= scale_factor_;
             T* temp = new T[capacity_];
@@ -99,13 +107,34 @@ public:
     }
 
     T peek() const override {
+        if (curr_size_ == 0) {
+            throw std::runtime_error("ABS peek fail");
+        }
         return array_[curr_size_ - 1];
     }
 
     T pop() override {
+        if (curr_size_ <= capacity_ / 4) {
+            capacity_ /= 2;
+        }
+        if (curr_size_ == 0) {
+            throw std::runtime_error("ABS pop fail");
+        }
         T temp = array_[curr_size_ - 1];
         curr_size_--;
         return temp;
+    }
+
+    void printForward() {
+        for (size_t i = 0; i < curr_size_; i++) {
+            std::cout << array_[i] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    void printCount() {
+        std::cout << "curr size " << curr_size_ << std::endl;
+        std::cout << "capacity " <<  capacity_ << std::endl;
     }
 
 private:
