@@ -89,9 +89,6 @@ public:
 
     // Push item onto the stack
     void push(const T& data) override {
-        if (curr_size_ <= capacity_ / 4) {
-            capacity_ /= 2;
-        }
         if (curr_size_ == capacity_) {
             capacity_ *= scale_factor_;
             T* temp = new T[capacity_];
@@ -104,6 +101,9 @@ public:
         }
         array_[curr_size_] = data;
         curr_size_++;
+        if (curr_size_ <= capacity_ / 4) {
+            capacity_ /= 2;
+        }
     }
 
     T peek() const override {
