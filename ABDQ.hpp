@@ -44,7 +44,7 @@ public:
     }
     ABDQ(ABDQ&& other) noexcept {
         capacity_ = other.capacity_;
-        size_ = other.curr_size_;
+        size_ = other.size_;
         data_ = other.data_;
         front_ = other.front_;
         back_ = other.back_;
